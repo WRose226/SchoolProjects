@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 #include <iomanip>
 #include <exception>
 
@@ -28,7 +28,7 @@
 #define __MEMORY_LEAK_TEST
 
 #define NUM_MEM_TESTS 1000
-#define MEM_TEST_SIZE 10
+#define MEM_TEST_SIZE 10000
 
 #ifdef __GRADING
 #include <fstream>
@@ -190,8 +190,7 @@ int main()
 	OUTSTREAM << "Points (out of 3):            3" << endl << endl;
 #endif
 
-	//Test pop_back on empty sequence
-	try {
+	// Test pop_back on empty sequence
 		OUTSTREAM << "Testing pop_back() on an empty sequence" << endl;
 		OUTSTREAM << "------------------" << endl;
 #ifdef __POP_BACK_EMPTY
@@ -202,19 +201,18 @@ int main()
 		data.pop_back();
 		data.pop_back();
 		data.pop_back();
-		data.pop_back();
-		OUTSTREAM << "ERROR: Pop_back() DID NOT throw an exception" << endl << endl;
+		try {
+			data.pop_back();
+			OUTSTREAM << "ERROR: Pop_back() DID NOT throw an exception" << endl << endl;
+		}
+		catch (const exception& e)
+		{
+			OUTSTREAM << "CORRECT: Threw exception: " << e.what() << endl << endl;
+		}
+
 #else
 		OUTSTREAM << "*** UNHANDLED CRASH DURING TESTING ***" << endl << endl;
 #endif
-	}
-
-	catch (exception& e)
-	{
-		OUTSTREAM << "CORRECT: Threw exception: " << e.what() << endl << endl;
-	}
-
-
 
 #ifdef __GRADING
 	OUTSTREAM << "Points (out of 1):            1" << endl << endl;
@@ -230,6 +228,8 @@ int main()
 		for (int i = 0; i < 5; i++) {
 			data[i] = (i + 1) * 100;
 		}
+
+		//OUTSTREAM << "Sequence:   " << data << endl;
 
 		data.insert(3, 999);
 		OUTSTREAM << "Sequence:   " << data << endl;
@@ -362,7 +362,7 @@ int main()
 	OUTSTREAM << "Points (out of 2):            2" << endl << endl;
 #endif
 
-	// Test back() on empty sequence
+	// Test back() on empty sequence										GOOD Maybe
 	try {
 		OUTSTREAM << "Testing back() on an empty sequence" << endl;
 		OUTSTREAM << "------------------------------------" << endl;
@@ -385,7 +385,7 @@ int main()
 	OUTSTREAM << "Points (out of 1):            1" << endl << endl;
 #endif
 
-	// Test empty()
+	// Test empty()															GOOD
 	try {
 		OUTSTREAM << "Testing empty()" << endl;
 		OUTSTREAM << "---------------" << endl;
@@ -409,7 +409,7 @@ int main()
 	OUTSTREAM << "Points (out of 1):            1" << endl << endl;
 #endif
 
-	// Test size()
+	// Test size()															GOOD
 	try {
 		OUTSTREAM << "Testing size()" << endl;
 		OUTSTREAM << "---------------" << endl;
@@ -434,7 +434,7 @@ int main()
 	OUTSTREAM << "Points (out of 2):            2" << endl << endl;
 #endif
 
-	// Test clear()
+	// Test clear()  														GOOD
 	try {
 		OUTSTREAM << "Testing clear()" << endl;
 		OUTSTREAM << "---------------" << endl;
@@ -497,7 +497,7 @@ int main()
 	OUTSTREAM << "Points (out of 3):            3" << endl << endl;
 #endif
 
-	// Test erase with invalid parameters
+	// Test erase with invalid parameters								GOOD
 	try {
 		OUTSTREAM << "Testing erase() on invalid parameters" << endl;
 		OUTSTREAM << "------------------" << endl;
@@ -522,7 +522,7 @@ int main()
 	OUTSTREAM << "Points (out of 1):            1" << endl << endl;
 #endif
 
-	// Test assignment (=) operator
+	// Test assignment (=) operator										NO CLUE
 	try {
 		OUTSTREAM << "Testing assignment (=) operator" << endl;
 		OUTSTREAM << "------------------" << endl;
@@ -643,4 +643,3 @@ void testCopyConstructor(Sequence s, ostream &os)
 	s[0] = 1;
 	os << "Copied Sequence:        " << s << endl;
 }
-*/
